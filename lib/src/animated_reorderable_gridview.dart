@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 
 import '../../animated_reorderable_list.dart';
-import 'builder/reorderable_animated_list_base.dart';
-import 'builder/reorderable_animated_list_impl.dart';
+import 'builder/motion_list_base.dart';
+import 'builder/motion_list_impl.dart';
 
 /// @docImport 'animated_reorderable_listview';
 
@@ -347,6 +347,8 @@ class AnimatedReorderableGridView<E extends Object> extends StatefulWidget {
   /// Defaults to true.
   final bool enableSwap;
 
+  final Widget? sliver;
+
   /// Creates a [AnimatedReorderableGridView] that enables users to interactively reorder items through dragging,
   /// with animated insertion and removal of items.
   const AnimatedReorderableGridView(
@@ -355,6 +357,7 @@ class AnimatedReorderableGridView<E extends Object> extends StatefulWidget {
       required this.itemBuilder,
       required this.sliverGridDelegate,
       required this.onReorder,
+      this.sliver,
       this.enterTransition,
       this.exitTransition,
       this.insertDuration,
@@ -451,7 +454,7 @@ class AnimatedReorderableGridViewState<E extends Object>
         slivers: [
           SliverPadding(
             padding: widget.padding ?? EdgeInsets.zero,
-            sliver: ReorderableAnimatedListImpl.grid(
+            sliver: MotionListImpl.grid(
               items: widget.items,
               itemBuilder: widget.itemBuilder,
               sliverGridDelegate: widget.sliverGridDelegate,
@@ -475,6 +478,9 @@ class AnimatedReorderableGridViewState<E extends Object>
               enableSwap: widget.enableSwap,
             ),
           ),
+          if(widget.sliver != null)...{
+            widget.sliver!,
+          },
         ]);
   }
 }
