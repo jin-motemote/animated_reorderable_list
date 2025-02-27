@@ -347,6 +347,8 @@ class AnimatedReorderableGridView<E extends Object> extends StatefulWidget {
   /// Defaults to true.
   final bool enableSwap;
 
+  final Widget? sliver;
+
   /// Creates a [AnimatedReorderableGridView] that enables users to interactively reorder items through dragging,
   /// with animated insertion and removal of items.
   const AnimatedReorderableGridView(
@@ -355,6 +357,7 @@ class AnimatedReorderableGridView<E extends Object> extends StatefulWidget {
       required this.itemBuilder,
       required this.sliverGridDelegate,
       required this.onReorder,
+      this.sliver,
       this.enterTransition,
       this.exitTransition,
       this.insertDuration,
@@ -475,6 +478,9 @@ class AnimatedReorderableGridViewState<E extends Object>
               enableSwap: widget.enableSwap,
             ),
           ),
+          if(widget.sliver != null)...{
+            widget.sliver!,
+          },
         ]);
   }
 }
